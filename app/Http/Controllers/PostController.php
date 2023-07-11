@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     function index(){
-       return $posts = Post::with('user','category')->get();
+        return Post::with('user','category')->get();
     }
 
     function singlePost($id){
-     return $posts = Post::with('user','category','comments')->where('id',$id)->get();
-    
+     return Post::with('user','category','comments')->where('id',$id)->get();
+       
    }
 
 }
