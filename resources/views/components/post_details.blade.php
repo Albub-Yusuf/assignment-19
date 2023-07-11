@@ -15,7 +15,7 @@
 
     var element = document.getElementById('post_id');
     var id = element.dataset.id;
-    console.log(id);
+    
 
         GetPostDetails(id);
         async function GetPostDetails(id){
@@ -24,7 +24,7 @@
             
             try{
                 let response = await axios.get(URL);
-                response.data.forEach((post)=>{
+                response.data.post.forEach((post)=>{
                     
                     document.getElementById('post-container').innerHTML+=(
 

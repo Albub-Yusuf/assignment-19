@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +22,5 @@ Route::get('/post/{id}',[PostController::class,'singlePost'])->name('post.detail
 
 Route::get('/',[PageController::class,'index']);
 Route::get('/post-details/{id}',[PageController::class,'postDetails']);
+
 
