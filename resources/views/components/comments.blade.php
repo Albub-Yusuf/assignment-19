@@ -22,23 +22,15 @@
                                 
                             </div>
 
-                            <div id="reply-container">
-                                <h3 class="mb-4">Leave a Reply</h3>
-                                <form method="POST">
+    
+                        <div id="commentForm">
+                                <h3 class="mb-4">Leave a Comment as a Guest</h3>
+                                <form method="POST" action="">
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <textarea class="form-control shadow-none" name="comment" rows="7" required></textarea>
+                                            <textarea id="comment" name="comment" class="form-control shadow-none" rows="7" required></textarea>
                                         </div>
-                                        <div class="form-group col-md-4">
-                                            <input class="form-control shadow-none" type="text" placeholder="Name" required>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <input class="form-control shadow-none" type="email" placeholder="Email" required>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <input class="form-control shadow-none" type="url" placeholder="Website">
-                                            <p class="font-weight-bold valid-feedback">OK! You can skip this field.</p>
-                                        </div>
+                                       <input id="postId" type="hidden" value="{{$postId}}" name="post_id"/>
                                     </div>
                                     <button class="btn btn-primary" type="submit">Comment Now</button>
                                 </form>
@@ -55,6 +47,42 @@
 
 
     <script>
+
+        // reply post
+            let commentForm = document.getElementById('commentForm');
+            commentForm.addEventListener('submit', async (event)=>{
+                event.preventDefault();
+                let comment = document.getElementById('comment').value;
+
+                let postId = document.getElementById('postId').value;
+               
+                let formData={
+                    'user_id':11,
+                    'post_id':postId,
+                    'comment':comment
+                }
+
+                let submittedUrl = "/comment";
+
+                let res = await axios.post(submittedUrl,formData)
+
+                if(res.status===200){
+                    GetLatestComment(postId)
+                    
+                }else{
+                    alert('something went wrong')
+                }
+
+            }) 
+        // reply post ends here
+
+
+
+
+
+
+
+
 
     var element = document.getElementById('post_id');
     var id = element.dataset.id;
@@ -99,4 +127,47 @@
 
 
         }
+
+
+        // get latest comment by post
+
+        async function GetLatestComment(id){
+
+let URL = "/post/"+id;
+console.log(URL);
+
+try{
+    let response = await axios.get(URL);
+   
+    response.data.latestCommentByPost.forEach((comment)=>{
+        
+        document.getElementById('comments-container').innerHTML+=(
+
+            `
+                            <div class="media d-block d-sm-flex mb-4 pb-4">
+                            <a class="d-inline-block mr-2 mb-3 mb-md-0" href="#">
+                                <img src='${comment.user['img']}' class="mr-3 rounded" alt="" width="150px">
+                            </a>
+                            <div class="media-body">
+                                <a href="#!" class="h4 d-inline-block mb-3">${comment.user['name']}</a>
+
+                                <p>${comment['comment']}</p>
+                                
+                                <span class="text-black-800 mr-3 font-weight-600">${comment['created_at']}</span>
+                                
+                            </div>
+             </div>
+            `
+
+        );
+
+    });
+
+}catch(error){
+    alert(error)
+}
+
+
+
+}
     </script>

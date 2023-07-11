@@ -23,4 +23,4 @@ Route::get('/post/{id}',[PostController::class,'singlePost'])->name('post.detail
 Route::get('/',[PageController::class,'index']);
 Route::get('/post-details/{id}',[PageController::class,'postDetails']);
 
-
+Route::post('/comment',[CommentsController::class,'comment'])->name('comment');

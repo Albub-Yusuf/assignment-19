@@ -15,8 +15,10 @@ class PostController extends Controller
     function singlePost($id){
      $posts = Post::with('user','category')->where('id',$id)->get();
      $comments = Comment::with('user')->where('post_id',$id)->get();
+     $latestCommentsByPost = Comment::with('user')->where('post_id',$id)->orderBy('id','DESC')->limit(1)->get();
+    
 
-     return ['post'=>$posts, 'comment' => $comments];
+     return ['post'=>$posts, 'comment' => $comments, 'latestCommentByPost' => $latestCommentsByPost];
 
        
    }
