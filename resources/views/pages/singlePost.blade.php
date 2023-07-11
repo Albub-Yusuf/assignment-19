@@ -3,6 +3,6 @@
 
 @section('content')
 
-<h3>This is post details</h3>
+@include('components.post_details')
 
 @endsection

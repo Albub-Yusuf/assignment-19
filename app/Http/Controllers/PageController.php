@@ -11,6 +11,6 @@ class PageController extends Controller
     }
 
     function postDetails($id){
-        return view('pages.singlePost');
+        return view('pages.singlePost',['postId' => $id]);
     }
 }

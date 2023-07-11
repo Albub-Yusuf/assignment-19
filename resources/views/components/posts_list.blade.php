@@ -1,7 +1,3 @@
-@php
-use Carbon\Carbon;
-@endphp
-
 <div class="container" style="min-height: 55vh;">
       <div class="row justify-content-center">
         <div class="col-lg-12 mb-5 mb-lg-0 mt-5">
@@ -59,7 +55,7 @@ use Carbon\Carbon;
                     </ul>
                     <p>${ post['content'].substring(0, 200) + "..." }</p>
 
-                    <a href="/post/${post['id']}" class="btn btn-outline-primary">Read More</a>
+                    <a href="/post-details/${post['id']}" class="btn btn-outline-primary">Read More</a>
                   </div>
                 </div>
               </article>`
